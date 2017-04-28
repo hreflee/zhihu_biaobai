@@ -1,0 +1,154 @@
+*{font-family: 'Microsoft Yahei' !important;}
+
+body  {
+	background: #f5f5f5;
+}
+
+#header {
+	z-index: 999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 45px;
+	background: #448acd;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	font-weight: normal;
+}
+
+#header p{
+	line-height: 45px;
+}
+
+#header a{
+    position: fixed;
+    top: 0;
+    right: 0px;
+    height: 45px;
+    width: 35px;
+    line-height: 45px;
+    color: white;
+    background-size: auto 20px;
+    background-repeat: no-repeat;
+    background-position: 13px 12px;
+    font-size: 14px;
+    text-align: left;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+#header  img{
+	position: fixed;
+	z-index: 3;
+	top: 0px;
+	left: 0px;
+    height: 29px;
+    float: left;
+    margin-top: 7px;
+    margin-left: 4px;
+    margin-right: 14px;
+}
+
+#content {
+	position: relative;
+	top: 50px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+#content p{
+	color: red;
+	margin-left: 10px;
+	font-size: 14px;
+}
+
+#content input{
+	width: 100%;
+	padding: 8px;
+	border:0px solid;
+	border-radius:5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#content select{
+	width: 100%;
+	height: 32px;
+	padding: 8px;
+	border:0px solid;
+	border-radius:5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#content textarea{
+	width: 100%;
+	padding: 8px;
+	border:0px solid;
+	border-radius:5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+#submit {
+	width: 100%;
+	height: 40px;
+	padding: 5px;
+	border:0px solid;
+	border-radius:5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background: #ef981c;
+	color: white;
+}
+
+
+.f {
+    display: none;
+    /*！！！正式运行时请删除本段上一行的注释符号！！！*/
+}
+
+#table {
+	border:0px solid;
+	border-radius:5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background: white;
+	font-size: 14px;
+	padding: 8px;
+
+	color: #000;
+}
+
+
+.btn-col-1-3 {
+	font-size: 15px;
+	display: inline-block;
+	width: 22%;
+	line-height: 33px;
+	float: left;
+	text-align: center;
+	/* padding-top: 10px;
+	padding-bottom: 10px; */
+	margin: 10px;
+	border-radius: 5px;
+	background-color: #468bcf;
+	color: #fff;
+	text-decoration: none;
+}
+
+.current {
+	background-color: #e53935;
+}
+
+#table table{
+	width: 80%;
+	text-align: center;
+	position: relative;
+	top: 4px;
+}
+
+#table label{
+}

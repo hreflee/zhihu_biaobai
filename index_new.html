@@ -1,0 +1,93 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>知湖 - 发表</title>
+	<meta http-equiv="Content-Type" content="text/html" />
+	<meta name="viewport" content="width=device-width"/>  
+    <link rel="stylesheet" href="update_2016/css/reset.css" type="text/css" >
+    <link rel="stylesheet" href="update_2016/css/main.css" type="text/css" >
+	<style type="text/css">
+	</style>
+	<script type="text/javascript" src="./Admin/Tpl/Exter/update_2016/js/jquery-1.3.1.min.js"></script>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		function btnClear() {
+			$('.btn-col-1-3').removeClass('current');
+			$('#cate').attr('value', '');
+		}
+
+		$('.btn-col-1-3').click(function () {
+			btnClear();
+			txt = $(this).text();
+			$('#cate').attr('value', txt);
+			$(this).addClass('current');
+		});
+		var info_completed = true;
+		$('.required').each(function() {
+			$(this).blur(function(){
+		        var cur=$(this);
+		        cur.next('p').remove();
+		        if($.trim(cur.val())=='') {
+	                cur.after('<p class="error">输入为空</p>');
+	                info_completed=false;
+		        }else if($.trim(cur.val()).length>25) {
+					cur.after('<p class="error">请输入不少于25个字</p>');
+	                info_completed=false;
+				}else {
+					info_completed=true;
+				}
+			});
+		});
+		$('#submit').click(function(){
+			var radiobutton=false;		 
+            var val=$('#cate').val();  
+            if(val===""){  
+                info_completed=false; 
+            }  
+            else{  
+                info_completed=true;  
+            }  
+			if(!info_completed==true ) {
+				alert("请检查内容是否填写完整！");
+				return false;
+			}
+
+            var actContent = $('#actContent').val();
+            actContent = "<p>" + actContent;
+            actContent = actContent.replace(/\n/g, "</p><p>");
+            actContent = actContent.replace(/\s/g, "&nbsp;");
+            actContent += "</p>";
+            $('#actContent').val(actContent);
+	  	});
+
+	}); 
+
+</script>
+</head>
+
+<body>
+	<div id="header">
+		<p>发 布 表 白</p>
+	</div>
+
+	<div id="content">
+	<form action="./admin.php?m=exter&a=insert" method="post" enctype="multipart/form-data">
+	<div>
+		<input id="title" class="required" placeholder="表白对象" type="text" name="title">
+		<p></p>
+		<input id="time" class="required f" type="text" name="time">
+		<p></p>
+		<div id="table-b">
+			<input type="text" style="display: none;" name="cate_id" value="表白" id="cate">
+		</div>
+		<textarea id='actContent' maxlength="500" id="textarea" class="required" rows="10" name="content" placeholder="活动简介 [500字以内]"></textarea>
+		<p></p>
+		<input id="location" class="required" placeholder="活动地点" type="text" name="location" >
+		<p></p>
+		<input id="submit" name="submit" type="submit" value="发布">
+	</div>
+	</form>
+	</div>
+</body>
+</html>
