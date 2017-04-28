@@ -4,87 +4,19 @@
 	<title>知湖 - 发布表白</title>
 	<meta http-equiv="Content-Type" content="text/html" />
 	<meta name="viewport" content="width=device-width"/>  
-    <link rel="stylesheet" href="update_2016/css/reset.css" type="text/css" >
-    <link rel="stylesheet" href="update_2016/css/main.css" type="text/css" >
-    <link rel="stylesheet" href="update_2016/css/iconfont.css" type="text/css" >
-	<script type="text/javascript" src="update_2016/js/jquery-1.12.4.min.js"></script>
+  <link rel="stylesheet" href="update_2016/css/reset.css" type="text/css" >
+  <link rel="stylesheet" href="update_2016/css/main.css" type="text/css" >
+  <link rel="stylesheet" href="update_2016/css/iconfont.css" type="text/css" >
+	<script src="update_2016/js/jquery-1.12.4.min.js"></script>
+	<script src="update_2016/js/vue.js"></script>
 	
-	<script type="text/javascript">
-	$(document).ready(function(){
-		function btnClear() {
-			$('.btn-col-1-3').removeClass('current');
-			$('#cate').attr('value', '');
+	<style>
+		.iconfont {
+			float: right;
+			font-size: 34px;
+			margin-top: -6px;
 		}
-
-		$('.btn-col-1-3').click(function () {
-			btnClear();
-			txt = $(this).text();
-			$('#cate').attr('value', txt);
-			$(this).addClass('current');
-		});
-		var info_completed = true;
-
-		$("#content").delegate(".required", "blur", function () {
-			var cur=$(this);
-		        cur.next('p').remove();
-		        if($.trim(cur.val())=='') {
-	                cur.after('<p class="error">输入不能为空</p>');
-	                info_completed=false;
-		        }else {
-					info_completed=true;
-				}
-		});
-
-		$('#submit').click(function(){
-			var radiobutton=false;		 
-            var val=$('#cate').val();  
-            if(val===""){  
-                info_completed=false; 
-            }  
-            else{  
-                info_completed=true;  
-            }  
-			if(!info_completed==true ) {
-				alert("请检查内容是否填写完整！");
-				return false;
-			}
-
-            var actContent = $('#actContent').val();
-            actContent = "<p>" + actContent;
-            actContent = actContent.replace(/\n/g, "</p><p>");
-            actContent = actContent.replace(/\s/g, "&nbsp;");
-            actContent += "</p>";
-            $('#actContent').val(actContent);
-	  	});
-
-		$("#sign-switch").click(function (e) {
-			el = $(this);
-			sign = $("#location");
-			if (el.hasClass("icon-off")) {
-				el.removeClass("icon-off");
-				el.addClass("icon-on");
-				sign.addClass("required");
-				sign.show();
-			}
-			else {
-				el.removeClass("icon-on");
-				el.addClass("icon-off");
-				sign.removeClass("required");
-				sign.next("p").remove();
-				sign.hide();
-			}
-		});
-	}); 
-
-</script>
-
-<style>
-	.iconfont {
-		float: right;
-		font-size: 34px;
-		margin-top: -6px;
-	}
-</style>
+	</style>
 </head>
 
 <body>
@@ -95,27 +27,90 @@
 	<div id="content">
 		<form action="./admin.php?m=exter&a=insert" method="post" enctype="multipart/form-data">
 			<div>
-				<input id="title" class="required" placeholder="表白对象" type="text" name="title">
-				<p></p>
-				<input id="time" class="required" style="display: none;" type="text" name="time">
-				<p></p>
+				<input id="title" v-model="formData.msgTo" class="required" placeholder="表白对象" type="text" name="title">
+				<input id="time" v-model="formData.time" class="required" style="display: none;" type="text" name="time">
 				<div id="table-b">
 					<input type="text" style="display: none;" name="cate_id" value="表白" id="cate">
 				</div>
-				<textarea id='actContent' maxlength="500" id="textarea" class="required" rows="10" name="content" placeholder="表白内容"></textarea>
-				<p></p>
+				<textarea id='actContent' v-model="formData.content" id="textarea" class="required" rows="10" name="content" placeholder="表白内容"></textarea>
 				<div id="table">
 					署名
-					<i class="iconfont icon-off" id="sign-switch"></i>
-					<input id="location" style="display: none;" placeholder="输入名字" type="text" name="location" >
+					<i class="iconfont" v-bind:class="{'icon-on': showingSign, 'icon-off': !showingSign}" @click="switchSign" id="sign-switch"></i>
+					<input id="location" v-model="formData.sign" v-show="showingSign" placeholder="输入名字" type="text" name="location" >
 				</div>
-				<p></p>
-				<input id="submit" name="submit" type="submit" value="发布">
+				<div class="table">
+					<img style="width: 100%" src="update_2016\img\bg1.jpg">
+				</div>
+				<input id="submit" v-on:click="validForm($event)" name="submit" type="submit" value="发布">
 			</div>
 		</form>
 	</div>
-	<script>
 
+	<script src="update_2016/js/biaobai.js"></script>
+	<script>
+		// function btnClear() {
+		// 	$('.btn-col-1-3').removeClass('current');
+		// 	$('#cate').attr('value', '');
+		// }
+
+		// $('.btn-col-1-3').click(function () {
+		// 	btnClear();
+		// 	txt = $(this).text();
+		// 	$('#cate').attr('value', txt);
+		// 	$(this).addClass('current');
+		// });
+		// var info_completed = false;
+
+		// $("#content").delegate(".required", "blur", function () {
+		// 	var cur=$(this);
+		//         cur.next('p').remove();
+		//         if($.trim(cur.val())=='') {
+	 //                cur.after('<p class="error">输入不能为空</p>');
+	 //                info_completed=false;
+		//         }else {
+		// 			info_completed=true;
+		// 		}
+		// });
+
+		// $('#submit').click(function(){
+		// 	info_completed = true;
+		// 	$("#time").val((new Date()).getTime());
+		// 	$(".required").each(function (a) {
+		// 		console.log(this.value.length);
+		// 		if(this.value.length == 0)
+		// 			info_completed = false;
+		// 	});
+		// 	if(!info_completed) {
+		// 		alert("请检查内容是否填写完整！");
+		// 		return false;
+		// 	}
+
+  //           var actContent = $('#actContent').val();
+  //           actContent = "<p>" + actContent;
+  //           actContent = actContent.replace(/\n/g, "</p><p>");
+  //           actContent = actContent.replace(/\s/g, "&nbsp;");
+  //           actContent += "</p>";
+  //           $('#actContent').val(actContent);
+	 //  	});
+
+		// $("#sign-switch").click(function (e) {
+		// 	el = $(this);
+		// 	sign = $("#location");
+		// 	if (el.hasClass("icon-off")) {
+		// 		el.removeClass("icon-off");
+		// 		el.addClass("icon-on");
+		// 		sign.addClass("required");
+		// 		info_completed = (sign.val().length);
+		// 		sign.show();
+		// 	}
+		// 	else {
+		// 		el.removeClass("icon-on");
+		// 		el.addClass("icon-off");
+		// 		sign.removeClass("required");
+		// 		sign.next("p").remove();
+		// 		sign.hide();
+		// 	}
+		// });
 	</script>
 </body>
 </html>
