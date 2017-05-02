@@ -58,12 +58,6 @@ body  {
 	margin-right: 5px;
 }
 
-#content p{
-	color: red;
-	margin-left: 10px;
-	font-size: 14px;
-}
-
 #content input{
 	width: 100%;
 	padding: 8px;
@@ -71,6 +65,7 @@ body  {
 	border-radius:5px;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	display: block;
 }
 
 #content select{
@@ -90,6 +85,7 @@ body  {
 	border-radius:5px;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	display: block;
 }
 
 #submit {
@@ -107,10 +103,9 @@ body  {
 
 .f {
     display: none;
-    /*！！！正式运行时请删除本段上一行的注释符号！！！*/
 }
 
-#table {
+.table {
 	border:0px solid;
 	border-radius:5px;
 	margin-top: 5px;
@@ -143,12 +138,32 @@ body  {
 	background-color: #e53935;
 }
 
-#table table{
+.table table{
 	width: 80%;
 	text-align: center;
 	position: relative;
 	top: 4px;
 }
 
-#table label{
+.table a{
+	display: inline-block;
+	width: 49%;
+	text-align: center;
+	margin-bottom: 10px; 
+}
+.table a:first-child{
+	border-right: 1px solid #d4d4d4;
+}
+.table .active{
+	color:  #00abff;
+}
+
+.common{
+  position: absolute;
+  right: 8px;
+  margin-top: -30px;
+  color: red;
+  font-size: 12px;
+  background: #efefef;
+  padding: 2px;
 }
