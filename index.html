@@ -31,13 +31,20 @@
         <input v-model="formData.time" style="display: none;" type="text" name="time">
         <textarea v-model="formData.content" @input="validInput('content')" id="textarea" rows="10" name="content" placeholder="表白内容"></textarea>
         <p v-show="common.content.length > 0" class="common">{{common.content}}</p>
+        <div class="table align">
+          <p>正文对齐</p>
+          <a @click="changeAlign(0)" :class="{'active': formData.align == '0'}">左对齐</a>
+          <a @click="changeAlign(1)" :class="{'active': formData.align == '1'}">居中</a>
+          <a @click="changeAlign(2)" :class="{'active': formData.align == '2'}">右对齐</a>
+          <input type="text" style="display: none;" v-model="formData.align" name="align">
+        </div>
         <div class="table">
           署名
           <i class="iconfont" v-bind:class="{'icon-on': showingSign, 'icon-off': !showingSign}" @click="switchSign"></i>
           <input @input="validInput('sign')" v-model="formData.sign" v-show="showingSign" placeholder="输入名字" type="text" name="sign" >
           <p v-show="common.sign.length > 0 && showingSign" class="common">{{common.sign}}</p>
         </div>
-        <div class="table">
+        <div class="table preview">
           <a @click="changeTemplate(0)" :class="{'active': formData.template == '0'}">天蓝模板</a>
           <a @click="changeTemplate(1)" :class="{'active': formData.template == '1'}">粉红模板</a>
           <input type="text" style="display: none;" v-model="formData.template" name="template">
@@ -47,6 +54,7 @@
       </div>
     </form>
   </div>
+
 
   <script src="update_2016/js/biaobai.js"></script>
 </body>

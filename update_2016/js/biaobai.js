@@ -6,7 +6,8 @@ var vue = new Vue({
       time: "",
       content: "",
       template: "0",
-      sign: ""
+      sign: "",
+      align: 1
     },
     common: {
       msgTo: "",
@@ -46,15 +47,24 @@ var vue = new Vue({
       switch(name){
         case "sign":
         case "msgTo": maxlen = 6; break;
-        case "content": maxlen = 40; break;
-        default: return;
+        case "content":
+          if((v.formData.content.match(/\n/g) !== null ? v.formData.content.match(/\n/g).length : 0) >= 7){
+            v.common.content = "请控制在7行以内哦";
+            return false;
+          }
+          maxlen = 40;
+          break;
+        default: return false;
       }
       if(v.formData[name].length > maxlen){
         v.common[name] = "请控制在" + maxlen + "个字以内哦";
         v.validPass = false;
+        return false;
       }
-      else
+      else{
         v.common[name] = "";
+        return true;
+      }
     },
     switchSign: function () {
       var v = this;
@@ -72,10 +82,18 @@ var vue = new Vue({
       else
         v.refreshPreview();
     },
+    changeAlign: function (type) {
+      var v = this;
+      v.formData.align = type;
+      if(v.formData.content.length < 2)
+        v.previewSrc = "update_2016\\img\\preview" + v.formData.template + ".jpg";
+      else
+        v.refreshPreview();
+    },
     refreshPreview: function () {
       var url = "http://1000.hnu.cn/weihuda/biaobai/thumbnail.php?";
       var fd = this.formData;
-      if(fd.content.length < 2)
+      if(!((fd.content.length > 2) && (this.validInput("content"))))
         return;
       for(item in fd){
         url += item + "=" + encodeURI(fd[item]) + "&";
